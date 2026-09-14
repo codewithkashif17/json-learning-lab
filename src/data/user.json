@@ -1,9 +1,17 @@
-{
-  "name": "Kashif",
-  "age": 20,
-  "email": "kashiftech17@gmail.com",
-  "phone": "03361155118",
-  "address": "kamal khel, Kohat,kpk, Pakistan",
-  "isActive": true,
-  "hobbies": ["reading", "traveling", "coding"]
-}
+[
+  {
+    "id": 1,
+    "name": "Ali",
+    "email": "ali@example.com"
+  },
+  {
+    "id": 2,
+    "name": "Ahmed",
+    "email": "ahmed@example.com"
+  },
+  {
+    "id": 3,
+    "name": "Usman",
+    "email": "usman@example.com"
+  }
+]

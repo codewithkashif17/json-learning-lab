@@ -1,13 +1,19 @@
-import fs from "fs";
+const menuItems = require("./userMenu/menu");
+const { ask } = require("./input/prompt");
+const { viewProfile } = require("./userMenu/user");
 
-const data = fs.readFileSync("./data/user.json", "utf-8");
-const user = JSON.parse(data);
-console.log(`
-    name: ${user.name},
-    age: ${user.age}
-    email: ${user.email},
-    phone: ${user.phone}
-    address: ${user.address},
-    isActive: ${user.isActive}
-    hobbies: ${user.hobbies}
-`);
+async function main() {
+  menuItems();
+
+  const choice = await ask("Select an option: ");
+
+  if (Number(choice) === 1) {
+    viewProfile();
+
+    await ask("\nPress Enter to return to menu...");
+    
+    main();
+  }
+}
+
+main();
