@@ -1,214 +1,377 @@
 # Day 03 — CLI Menu
-Today's Goal
 
-Build a simple interactive CLI menu in Node.js using JSON data and user input.
+## Objective
+
+The goal of Day 03 was to build an interactive command-line interface using ```Node.js```.
+
+The project was extended from basic JSON data handling into a menu-driven application where users can interact with the application through the terminal.
+
+## Topics Covered
+
+ - CLI applications
+
+ - User input
+
+ - Node.js readline
+
+ - Interactive menus
+
+ - Menu selection
+
+ - Conditional logic
+
+ - Functions
+
+ - Node.js modules
+
+ - ```require()```
+
+- ```module.exports```
+
+- Separating application logic
+
+- User menu handling
+
+- Application navigation
+
+## Project Structure
+
+The Day 03 project is organized as follows:
 
 ```
-Project Structure
-src/
-├── data/
-│   ├── menu.json
-│   └── user.json
+json-learning-lab/
 │
-├── input/
-│   └── prompt.js
+├── package.json
+├── README.md
 │
-├── userMenu/
-│   ├── menu.js
-│   └── user.js
+├── docs/
+│   ├── day-01-json-project-setup.md
+│   ├── day-02-json-data-handling.md
+│   └── day-03-cli-menu.md
 │
-└── index.js
+└── src/
+    ├── index.js
+    │
+    ├── data/
+    │   ├── menu.json
+    │   └── user.json
+    │
+    ├── input/
+    │   └── prompt.js
+    │
+    └── userMenu/
+        ├── menu.js
+        └── user.js
+
 ```
-## 1. Reading Menu Data from JSON
 
-The menu is stored in **menu.json**.
+CLI Application
 
-**Node.js** can directly load JSON using **require()**:
+CLI stands for:
+
+```Command Line Interface```
+
+Instead of using a graphical interface, the user interacts with the application through the terminal.
+
+## Example:
+
+JSON Learning Lab
+
+```
+1. User Menu
+2. Application Menu
+3. Exit
+
+Enter your choice:
+```
+
+The user enters a number and the application performs the selected action.
+
+```User Input```
+
+```Node.js``` provides the readline module for receiving input from the terminal.
+
+## Example:
+
+```const readline = require("readline");```
+
+
+An interface can be created using:
 
 ```javascript
-const menu = require("../data/menu.json");
-```
-
-There is no need to use JSON.parse() because Node.js automatically parses the JSON file when using require().
-
-## 2. Displaying the Menu
-
-The menu items are displayed using **forEach()**:
-
-```javascript
-const menuItems = require("./userMenu/menu");
-
-async function main() {
-  menuItems();
-
-}
-
-main();
-
-```
-
-
-
-# Example output:
-
-```
-1 View Profile
-2 View Orders
-3 Settings
-4 Logout
-```
-
-## 3. map() vs forEach()
-
-Initially, I used map() like this:
-
-```javascript
-const menuItems = menu.map((item) => {
-  console.log(`${item.id} ${item.name}`);
-});
-
-```
-
-
-This resulted in undefined values because the callback did not return anything.
-
-map() is used when we want to create a new array:
-
-```javascript
-const names = menu.map((item) => {
-  return item.name;
-});
-
-```
-
-forEach() is better when we simply want to perform an action for every item:
-
-```javascript
-menu.forEach((item) => {
-  console.log(item.name);
-});
-
-```
-
-Rule
-forEach() → perform an action
-map() → create a new array
-find() → find one item
-filter() → find multiple items
-4. Creating a Reusable Input Function
-
-I created input/prompt.js to handle terminal input.
-
-```javascript
-const readline = require("readline");
-
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
+  output: process.stdout
 });
 
-function ask(question) {
-  return new Promise((resolve) => {
-    rl.question(question, (answer) => {
-      resolve(answer);
-    });
-  });
+```
+
+
+The application can then ask the user a question.
+
+## Prompt Module
+
+Input functionality was separated into:
+
+```
+src/input/prompt.js
+```
+
+This keeps input-related code separate from the application logic.
+
+The purpose of this separation is to make the project easier to maintain and understand.
+
+## User Menu
+
+The user-related functionality was placed inside:
+
+```
+src/userMenu/user.js
+```
+
+This module is responsible for user-related operations.
+
+For example, it can display user information loaded from:
+
+```
+src/data/user.json
+```
+## Application Menu
+
+Menu-related functionality was placed inside:
+
+```
+src/userMenu/menu.js
+```
+
+This module handles the application menu and menu-related operations.
+
+Modular Architecture
+
+Instead of putting all code inside one file, the project separates responsibilities:
+
+```
+index.js
+   │
+   ├── input/
+   │     └── prompt.js
+   │
+   └── userMenu/
+         ├── menu.js
+         └── user.js
+
+```
+
+This approach makes the application easier to understand and maintain.
+```
+Node.js Modules
+```
+JavaScript functionality can be exported from one file and imported into another.
+
+## Example:
+
+```module.exports = myFunction```;
+
+
+Another file can use it with:
+
+```const myFunction = require("./myFile")```;
+
+
+This concept was used to separate CLI functionality into multiple files.
+
+## Menu Selection
+
+The application uses user input to determine which action should be performed.
+
+## Example:
+
+
+```javascript
+switch (choice) {
+  case "1":
+    // User menu
+    break;
+
+  case "2":
+    // Application menu
+    break;
+
+  case "0":
+    // Exit
+    break;
+
+  default:
+    // Invalid input
 }
+```
 
-module.exports = { ask };
+This creates a clear menu-driven application flow.
+
+## Invalid Input Handling
+
+A CLI application should not immediately crash when the user enters an invalid option.
+
+## For example:
+
+```
+1. User Menu
+2. Application Menu
+0. Exit
+
+Enter your choice: abc
+
+```
+The application should respond with something like:
+
+```
+Invalid choice.
+
+Please select a valid option.
+
+```
+The menu can then be displayed again.
+
+This improves the user experience and makes the CLI more reliable.
+
+## Application Flow
+
+The Day 03 application follows this basic flow:
+
+```
+Start Application
+       ↓
+Display Menu
+       ↓
+Receive User Input
+       ↓
+Check Selection
+       ↓
+Perform Selected Action
+       ↓
+Return to Menu
+       ↓
+Continue
+       ↓
+Exit
+```
+
+
+## JSON Integration
+
+The CLI application uses the JSON files created during previous learning tasks.
+
+```
+src/data/
+├── menu.json
+└── user.json
+```
+
+The JSON data provides the application with structured information.
+
+This demonstrates how JSON, Node.js, and CLI functionality can work together.
+
+Testing
+
+The Day 03 application can be started using:
+
+
+```node src/index.js```
+
+
+The application was tested through the terminal.
+
+## Testing included:
+
+```
+ -> Opening the main menu.
+
+ -> Selecting user-related options.
+
+ -> Selecting menu-related options.
+
+ -> Entering valid choices.
+
+ -> Entering invalid choices.
+
+ -> Returning between menus.
+
+ -> Exiting the application.
+
+ -> What I Learned
+
+ -> During Day 03, I learned:
+
+ -> How CLI applications work.
+
+ -> How to receive input from users.
+
+ -> How to use Node.js readline.
+
+ -> How to create interactive menus.
+
+ -> How to use switch for menu selection.
+
+ -> How to handle invalid input.
+
+ -> How to separate application logic into modules.
+
+ -> How require() and module.exports work.
+
+ -> How JSON data can be integrated into a CLI application.
+
+ -> How to organize a small Node.js application.
 
 ```
 
-Now the function can be used anywhere in the application.
+## Result
 
+Day 03 was completed successfully.
 
-```javascript
-const { ask } = require("./input/prompt");
+The project now contains an interactive CLI menu system that works with the JSON data created during Days 01 and 02.
 
-const choice = await ask("Select an option: ");
+The application logic is separated into different modules, making the project easier to maintain and extend.
+
+```
+Learning Progress
+Day 01
+JSON & Project Setup
+       ↓
+Day 02
+JSON Data Handling
+       ↓
+Day 03
+CLI Menu
+       ↓
+Future
+Complete CLI Lab
 
 ```
 
-## 5. Separating User Profile Logic
+## Next Step
 
-The profile functionality is kept in **userMenu/user.js**.
+The next stage of the project will combine the previous days into a larger CLI-based JSON learning application.
 
-```javascript
-const user = require("../data/user.json");
+Future improvements can include:
 
-function viewProfile() {
-  console.log("\n--- User Profile ---");
-  console.log(`Name: ${user.name}`);
-  console.log(`Email: ${user.email}`);
-}
+Main day-selection menu
 
-module.exports = {
-  viewProfile,
-};
+Day 01 testing menu
 
-```
+Day 02 testing menu
 
-This keeps index.js from becoming too large.
+Day 03 testing menu
 
-## 6. Handling the Selected Option
+Better input validation
 
-The selected input is a string, so it can be converted to a number:
+Navigation between menus
 
-```javascript
-const choice = await ask("Select an option: ");
+JSON-based menu configuration
 
-if (Number(choice) === 1) {
-  viewProfile();
-}
+CRUD operations
 
-```
+User management
 
-When the user enters 1, the profile is displayed.
+Error handling
 
-Example:
-```
-----------Menu-----------
-1 View Profile
-2 View Orders
-3 Settings
-4 Logout
-
-Select an option: 1
-
---- User Profile ---
-Name: Ali
-Email: ali@example.com
-
-```
-
-## 7. Waiting Before Returning to the Menu
-
-After displaying the profile, the application can wait for the user:
-
-```javascript
-await ask("\nPress Enter to return to menu...");
-```
-
-This allows the user to read the profile before continuing.
-
-# What I Learned
- - How to load JSON data with require().
- - Why JSON.parse() is not required after require() for JSON files.
- - The difference between map() and forEach().
- - Why undefined appeared when using map() without return.
- - How to create reusable modules.
- - How module.exports and require() work.
- - How to take terminal input using Node.js readline.
- - How to handle a selected menu option.
- - How to separate user profile logic into its own module.
- - Next Task
-
-Improve the **CLI** menu using a while loop so that the menu keeps running until the user selects Logout.
-
-## Planned options:
-```
-1 View Profile
-2 View Orders
-3 Settings
-4 Logout
-```
+Complete CLI application

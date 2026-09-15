@@ -5,12 +5,19 @@ const rl = readline.createInterface({
   output: process.stdout,
 });
 
-function ask(question) {
+function prompt(question) {
   return new Promise((resolve) => {
     rl.question(question, (answer) => {
-      resolve(answer);
+      resolve(answer.trim());
     });
   });
 }
 
-module.exports = { ask };
+function closePrompt() {
+  rl.close();
+}
+
+module.exports = {
+  prompt,
+  closePrompt,
+};
