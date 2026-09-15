@@ -1,18 +1,22 @@
-[
-  {
-    "id": 1,
-    "name": "View Profile"
-  },
-  {
-    "id": 2,
-    "name": "View Orders"
-  },
-  {
-    "id": 3,
-    "name": "Settings"
-  },
-  {
-    "id": 4,
-    "name": "Logout"
-  }
-]
+{
+  "application": "JSON Learning Lab",
+  "version": "1.0.0",
+  "days": [
+    {
+      "id": 1,
+      "title": "Day 01 - JSON & Project Setup"
+    },
+    {
+      "id": 2,
+      "title": "Day 02 - JSON Data Handling"
+    },
+    {
+      "id": 3,
+      "title": "Day 03 - CLI Menu"
+    },
+    {
+      "id": 0,
+      "title": "Exit"
+    }
+  ]
+}
