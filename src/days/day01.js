@@ -32,33 +32,49 @@ async function day01() {
       }
 
       case "2": {
-        const data = JSON.parse(
-          fs.readFileSync(userFile, "utf-8")
-        );
+        const data = JSON.parse(fs.readFileSync(userFile, "utf-8"));
+        const choice = await prompt("Enter ID: ");
+        if (choice === "0") {
+          console.log(data[0].name);
+        } else if (choice === "1") {
+          console.log(data[1].name);
+        } else if (choice === "2") {
+          console.log(data[2].name);
+        }
 
-        console.log("\nUser Name:", data.name);
+        
 
         await prompt("\nPress Enter to continue...");
         break;
       }
 
       case "3": {
-        const data = JSON.parse(
-          fs.readFileSync(userFile, "utf-8")
-        );
+        const data = JSON.parse(fs.readFileSync(userFile, "utf-8"));
 
-        console.log("\nUser Email:", data.email);
+        const choice = await prompt("Enter ID: ");
+        if (choice === "0") {
+          console.log(data[0].email);
+        } else if (choice === "1") {
+          console.log(data[1].email);
+        } else if (choice === "2") {
+          console.log(data[2].email);
+        }
 
         await prompt("\nPress Enter to continue...");
         break;
       }
 
       case "4": {
-        const data = JSON.parse(
-          fs.readFileSync(userFile, "utf-8")
-        );
+        const data = JSON.parse(fs.readFileSync(userFile, "utf-8"));
 
-        console.log("\nUser City:", data.city);
+        const choice = await prompt("Enter ID: ");
+        if (choice === "0") {
+          console.log(data[0].city);
+        } else if (choice === "1") {
+          console.log(data[1].city);
+        } else if (choice === "2") {
+          console.log(data[2].city);
+        }
 
         await prompt("\nPress Enter to continue...");
         break;
